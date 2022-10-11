@@ -41,4 +41,41 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function business_types()
+    {
+        return $this->belongsToMany('App\Models\BusinessCategory')->wherePivot('status', 1);
+    }
+    //users favourite pub
+    public function userFavPub()
+    {
+        return $this->hasMany('App\Models\FavouritePub');
+    }
+    //check a pub is fabourite of a user
+    public function pubFavOfAUser()
+    {
+        return $this->hasMany('App\Models\FavouritePub','favourite_user_id','id');
+    }
+
+    public function profile()
+    {
+
+        return $this->hasOne('App\Models\UserProfile')->withDefault();
+    }
+
+    public function reviews()
+    {
+
+        return $this->hasMany('App\Models\PubReview','pub_id','id');
+    }
+
+    public function avgRating()
+    {
+        return $this->reviews()->avg('rating');
+    }
+
+    public function foods()
+    {
+        return $this->hasMany('App\Models\Food','pub_id','id');
+    }
 }

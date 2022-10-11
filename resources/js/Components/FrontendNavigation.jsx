@@ -19,7 +19,7 @@ export default function FrontendNavigation() {
                                     <a className="nav-link notranslate">about</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link notranslate">restaurent</a>
+                                    <Link className="nav-link notranslate" href={ route('restaurent') }>restaurent</Link>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link notranslate">subscription</a>
