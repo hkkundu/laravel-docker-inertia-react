@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 
 export default function TextInput({
     type = 'text',
+    // type = 'text',
     name,
     value,
     className,
@@ -9,6 +10,7 @@ export default function TextInput({
     required,
     isFocused,
     handleChange,
+    placeholder,
 }) {
     const input = useRef();
 
@@ -19,20 +21,36 @@ export default function TextInput({
     }, []);
 
     return (
-        <div className="flex flex-col items-start">
+        // <div className="flex flex-col items-start">
+        //     <input
+        //         type={type}
+        //         name={name}
+        //         value={value}
+        //         className={
+        //             `border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm ` +
+        //             className
+        //         }
+        //         ref={input}
+        //         autoComplete={autoComplete}
+        //         required={required}
+        //         onChange={(e) => handleChange(e)}
+        //     />
+        // </div>
+        <>
             <input
                 type={type}
                 name={name}
                 value={value}
                 className={
-                    `border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm ` +
+                    `form-control ` +
                     className
                 }
                 ref={input}
                 autoComplete={autoComplete}
+                placeholder={placeholder}
                 required={required}
                 onChange={(e) => handleChange(e)}
             />
-        </div>
+        </>
     );
 }

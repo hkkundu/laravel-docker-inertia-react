@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Cms;
 use App\Models\Food;
+use App\Models\PubReview;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -147,5 +149,40 @@ class FrontendController extends Controller
         }
         $data['resturent_details'] = $resturent_details;
         return Inertia::render('Restaurent', $data);
+    }
+
+    public function getResturentsDetail($id)
+    {
+        $resturent_detail = DB::table('users')->join('user_profiles','user_profiles.user_id','=','users.id')
+                ->select('user_profiles.business_name','user_profiles.profile_photo','user_profiles.about','user_profiles.address','user_profiles.add_lng','user_profiles.add_lat','users.id','users.name as contact', 'user_profiles.mobile','users.email')
+                ->where('role',2)
+                ->where('users.id',$id)
+                ->first();
+
+        // $f_v_s_banners = DB::table('vendor_feature_subscriptions')->where('valid_from','<=',date('Y-m-d'))->where('valid_to','>=',date('Y-m-d'))->where('pub_id',$id)->first();
+        // dd('hi');
+        // if(empty($f_v_s_banners)) {
+        //     $f_banners = [];
+        // } else {
+        //     $f_v_s_details = DB::table('feature_subscriptions')->where('id',$f_v_s_banners->feature_id)->first();
+        //     if($f_v_s_details->no_of_banner){
+
+        //         $f_banners = DB::table('feature_banners')->where('pub_id',$id)->take($f_v_s_details->no_of_banner)->get();
+        //     } else {
+
+        //         $f_banners = DB::table('feature_banners')->where('pub_id',$id)->get();
+        //     }
+        // }
+        $foods = Category::with('foods')
+            ->whereHas('foods', function($query) use($id){
+                $query->where('pub_id',$id);
+            })
+            ->get();
+        // $galleries = Gallery::where('pub_id',$id)->where('file_status',1)->get();
+        // $gallery_video = Gallery::where('pub_id',$id)->where('file_status',2)->first();
+        // $food_docs = FoodMedia::where('pub_id',$id)->get();
+
+        $reviews = PubReview::with('user:id,name','user.profile:user_id,profile_photo')->where('pub_id',$id)->where('status',1)->latest()->simplePaginate(1);
+        return Inertia::render('RestaurantDetails',compact('resturent_detail','foods','reviews'));
     }
 }

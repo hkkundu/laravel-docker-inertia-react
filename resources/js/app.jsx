@@ -10,8 +10,8 @@ import '../frontend/css/global-style.css';
 // import '../plugins/toastr/toastr.min.css';
 
 // import '../frontend/js/jquery-1.11.0.js';
-// import '../frontend/js/popper.min.js';
-// import '../frontend/js/bootstrap.min.js';
+import '../frontend/js/popper.min.js';
+import '../frontend/js/bootstrap.min.js';
 // import '../frontend/js/owl.carousel.min.js';
 // // import '../frontend/js/aos.js';
 // import '../frontend/js/simple-lightbox.min.js';

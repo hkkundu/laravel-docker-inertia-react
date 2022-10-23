@@ -14,7 +14,7 @@ export default function FrontendFooter() {
                             <form action="{{ route('newsLetter') }}" method="post">
                                 @csrf
                                 {/* <input type="email" name="email" className="form-control" placeholder="name@example.com" id="subscribeEmail" required> */}
-                                <label for="subscribeEmail">your email id</label>
+                                <label htmlFor="subscribeEmail">your email id</label>
                                 <button className="btn" type="submit"><i className="bi bi-cursor-fill"></i></button>
                             </form>
                         </div>

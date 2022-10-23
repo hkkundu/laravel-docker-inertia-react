@@ -26,6 +26,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/restaurent', [FrontendController::class, 'restaurent'])->name('restaurent');
+Route::get('/resturent/{id}', [FrontendController::class, 'getResturentsDetail'])->name('resturent_details');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
